@@ -1,0 +1,13 @@
+{"darshanBookingId":"IVQ25110216224656960876","serviceTypeId":"100001","pilgrimId":[27963114,27963115]}
+post:
+https://sabarimalaonline.org/api/tofcart/cancelDarshanBookingPilgrim
+
+{
+    "darshanBookingId": "IVQ25110216224656960876",
+    "pilgrimId": [
+        27963114,
+        27963115
+    ],
+    "status": "Cancelled",
+    "errorMsg": null
+}

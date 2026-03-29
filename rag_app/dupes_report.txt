@@ -1,0 +1,15 @@
+NIW1947928
+80	{"id":"NIW1947928","age":"80","name":"காசியம்மாள்","relation_name":"சகாதேவன்","relationship":"கணவர் பெயர்","serial_no":79,"address":"174/78ஏஃப","page_no":5,"name_in_english":"Kasiyammal","relation_name_in_english":"Sakadevan"},
+699	{"id":"NIW1947928","age":"80","name":"காசியம்மாள்","relation_name":"சகாதேவன்","relationship":"கணவர்","serial_no":695,"address":"174/78எஃப்","page_no":28,"name_in_english":"Kasiammal","relation_name_in_english":"Sakadevan"},
+NIW0947069
+81	{"id":"NIW0947069","age":"70","name":"எத்திலியம்மாள்","relation_name":"பாலகிருஷ்ணன்","relationship":"கணவர் பெயர்","serial_no":80,"address":"602","page_no":5,"name_in_english":"Ethiliammal","relation_name_in_english":"Balakrishnan"},
+696	{"id":"NIW0947069","age":"70","name":"எத்திலியம்மாள்","relation_name":"பாலகிருஷ்ணன்","relationship":"கணவர்","serial_no":692,"address":"602","page_no":28,"name_in_english":"Ethiliyammal","relation_name_in_english":"Balakrishnan"},
+NIW0947077
+82	{"id":"NIW0947077","age":"38","name":"மாரியம்மாள்","relation_name":"பாலகிருஷ்ணன்","relationship":"தந்தையின் பெயர்","serial_no":81,"address":"602","page_no":5,"name_in_english":"Mariammal","relation_name_in_english":"Balakrishnan"},
+697	{"id":"NIW0947077","age":"38","name":"மாரியம்மாள்","relation_name":"பாலகிருஷ்ணன்","relationship":"தந்தையின்","serial_no":693,"address":"602","page_no":28,"name_in_english":"Mariammal","relation_name_in_english":"Balakrishnan"},
+NIW0947127
+83	{"id":"NIW0947127","age":"45","name":"அழகிரிசாமி","relation_name":"பாலகிருஷ்ணன்","relationship":"தந்தையின் பெயர்","serial_no":82,"address":"602-5","page_no":5,"name_in_english":"Alagirisami","relation_name_in_english":"Balakrishnan"},
+698	{"id":"NIW0947127","age":"45","name":"அழகிரிசாமி","relation_name":"பாலகிருஷ்ணன்","relationship":"தந்தையின்","serial_no":694,"address":"602/5","page_no":28,"name_in_english":"Alagirisami","relation_name_in_english":"Balakrishnan"},
+NIW0947135
+84	{"id":"NIW0947135","age":"36","name":"நித்யா","relation_name":"அழகிரிசாமி","relationship":"கணவர்","serial_no":83,"address":"602-9","page_no":6,"name_in_english":"Nithya","relation_name_in_english":"Alagirisami"},
+695	{"id":"NIW0947135","age":"36","name":"நித்யா","relation_name":"அழகிரிசாமி","relationship":"கணவர்","serial_no":691,"address":"602/5","page_no":28,"name_in_english":"Nithya","relation_name_in_english":"Alagirisami"},

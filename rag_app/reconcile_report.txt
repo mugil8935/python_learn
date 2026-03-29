@@ -1,0 +1,5 @@
+original_object_lines=705
+final_records_written=705
+missing_serials_count=0
+extra_serials_outside_range_count=0
+duplicated_serials_in_original_count=0

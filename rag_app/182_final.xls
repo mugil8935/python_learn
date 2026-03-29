@@ -1,0 +1,8 @@
+part_no,Part name,slno,section name,total electors,total part votes
+1,"GovernmentTribalResidanceMiddleSchool-Thalvallam-636138,TerracedBuildingFacingwestNorthWing",1,"1-Koilputhur(R.V),PeriyakalrayanMelnadu(P),Ward1,Koilputhur 1",749,224
+1,"GovernmentTribalResidanceMiddleSchool-Thalvallam-636138,TerracedBuildingFacingwestNorthWing",2,"2-Koilputhur(R.V),PeriyakalrayanMelnadu(P),Ward1,Melvallam 220",749,151
+1,"GovernmentTribalResidanceMiddleSchool-Thalvallam-636138,TerracedBuildingFacingwestNorthWing",3,"3-Koilputhur(R.V),PeriyakalrayanMelnadu(P),Ward1,Perandoor 368",749,374
+2,"GovernmentTribalResidanceMiddleSchool-Thalvallam-636138,TerracedBuildingFacingNorthWestWing",1,"1-Koilputhur(R.V),PeriyakalrayanMelnadu(P),Ward1,Morasampatty 1",790,169
+2,"GovernmentTribalResidanceMiddleSchool-Thalvallam-636138,TerracedBuildingFacingNorthWestWing",2,"2-Koilputhur(R.V),PeriyakalrayanMelnadu(P),Ward1,Thalvallam 165",790,621
+3,c.s.v. Hall Building,1,"1-EdgeSection,ExampleWard,LineA
+Continuation of section name on second line",500,123

@@ -1,0 +1,243 @@
+2026-02-01 11:04:13,869 - INFO - ============================================================
+2026-02-01 11:04:13,869 - INFO - RAG Chatbot Application Started
+2026-02-01 11:04:13,869 - INFO - Timestamp: 2026-02-01 11:04:13
+2026-02-01 11:04:13,870 - INFO - ============================================================
+2026-02-01 11:04:13,870 - INFO - ============================================================
+2026-02-01 11:04:13,870 - INFO - RAG Chatbot Initialized
+2026-02-01 11:04:13,870 - INFO - Index: test-index
+2026-02-01 11:04:13,870 - INFO - ============================================================
+2026-02-01 11:04:13,870 - INFO - Testing connections...
+2026-02-01 11:04:13,881 - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2026-02-01 11:04:13,946 - INFO - ============================================================
+2026-02-01 11:04:13,946 - INFO - Starting Interactive Chat Session
+2026-02-01 11:04:13,947 - INFO - Type 'exit' or 'quit' to end the conversation
+2026-02-01 11:04:13,947 - INFO - ============================================================
+2026-02-01 11:04:28,263 - INFO - ============================================================
+2026-02-01 11:04:28,264 - INFO - Query: what is age of selvam
+2026-02-01 11:04:28,265 - INFO - ============================================================
+2026-02-01 11:04:28,266 - INFO - Step 1: Retrieving relevant context...
+2026-02-01 11:04:28,267 - INFO - Retrieving context for query: 'what is age of selvam'
+2026-02-01 11:04:29,444 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-02-01 11:04:30,345 - INFO - Performing vector search with k=5
+2026-02-01 11:04:30,419 - INFO - POST http://localhost:9200/test-index/_search [status:400 duration:0.073s]
+2026-02-01 11:04:30,420 - ERROR - Error retrieving context: BadRequestError(400, 'x_content_parse_exception', '[1:18] [knn] unknown field [embedding]')
+Traceback (most recent call last):
+  File "c:\Users\mugil\OneDrive\python\rag_app\chatbot.py", line 69, in retrieve_context
+    results = es_client.search(
+        index=self.index_name,
+    ...<9 lines>...
+        }
+    )
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 458, in wrapped
+    return api(*args, **kwargs)
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 5114, in search
+    return self.perform_request(  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "POST",
+        ^^^^^^^
+    ...<5 lines>...
+        path_parts=__path_parts,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+        method,
+    ...<4 lines>...
+        otel_span=otel_span,
+    )
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 351, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+        message=message, meta=meta, body=resp_body
+    )
+elasticsearch.BadRequestError: BadRequestError(400, 'x_content_parse_exception', '[1:18] [knn] unknown field [embedding]')
+2026-02-01 11:04:30,428 - WARNING - No relevant documents found
+2026-02-01 11:06:17,401 - INFO - ============================================================
+2026-02-01 11:06:17,401 - INFO - Query: H:\venv\global\Scripts\python.exe c:/Users/mugil/OneDrive/python/rag_app/chatbot.py
+2026-02-01 11:06:17,401 - INFO - ============================================================
+2026-02-01 11:06:17,402 - INFO - Step 1: Retrieving relevant context...
+2026-02-01 11:06:17,402 - INFO - Retrieving context for query: 'H:\venv\global\Scripts\python.exe c:/Users/mugil/OneDrive/python/rag_app/chatbot.py'
+2026-02-01 11:06:17,873 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-02-01 11:06:17,875 - INFO - Performing vector search with k=5
+2026-02-01 11:06:17,924 - INFO - POST http://localhost:9200/test-index/_search [status:400 duration:0.048s]
+2026-02-01 11:06:17,925 - ERROR - Error retrieving context: BadRequestError(400, 'x_content_parse_exception', '[1:18] [knn] unknown field [embedding]')
+Traceback (most recent call last):
+  File "c:\Users\mugil\OneDrive\python\rag_app\chatbot.py", line 69, in retrieve_context
+    results = es_client.search(
+              ^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+                        }
+    
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 458, in wrapped
+    return api(*args, **kwargs)
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 5114, in search
+    return self.perform_request(  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "POST",
+        ^^^^^^^
+    ...<5 lines>...
+        path_parts=__path_parts,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+        method,
+    ...<4 lines>...
+        otel_span=otel_span,
+    )
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 351, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+        message=message, meta=meta, body=resp_body
+    )
+elasticsearch.BadRequestError: BadRequestError(400, 'x_content_parse_exception', '[1:18] [knn] unknown field [embedding]')
+2026-02-01 11:06:17,928 - WARNING - No relevant documents found
+2026-02-01 11:06:23,510 - INFO - ============================================================
+2026-02-01 11:06:23,511 - INFO - Query: find age of selvam
+2026-02-01 11:06:23,511 - INFO - ============================================================
+2026-02-01 11:06:23,511 - INFO - Step 1: Retrieving relevant context...
+2026-02-01 11:06:23,511 - INFO - Retrieving context for query: 'find age of selvam'
+2026-02-01 11:06:24,155 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-02-01 11:06:24,157 - INFO - Performing vector search with k=5
+2026-02-01 11:06:24,206 - INFO - POST http://localhost:9200/test-index/_search [status:400 duration:0.046s]
+2026-02-01 11:06:24,206 - ERROR - Error retrieving context: BadRequestError(400, 'x_content_parse_exception', '[1:18] [knn] unknown field [embedding]')
+Traceback (most recent call last):
+  File "c:\Users\mugil\OneDrive\python\rag_app\chatbot.py", line 69, in retrieve_context
+    results = es_client.search(
+              ^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+                        }
+    
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\utils.py", line 458, in wrapped
+    return api(*args, **kwargs)
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\__init__.py", line 5114, in search
+    return self.perform_request(  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "POST",
+        ^^^^^^^
+    ...<5 lines>...
+        path_parts=__path_parts,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 271, in perform_request
+    response = self._perform_request(
+        method,
+    ...<4 lines>...
+        otel_span=otel_span,
+    )
+  File "H:\venv\global\Lib\site-packages\elasticsearch\_sync\client\_base.py", line 351, in _perform_request
+    raise HTTP_EXCEPTIONS.get(meta.status, ApiError)(
+        message=message, meta=meta, body=resp_body
+    )
+elasticsearch.BadRequestError: BadRequestError(400, 'x_content_parse_exception', '[1:18] [knn] unknown field [embedding]')
+2026-02-01 11:06:24,210 - WARNING - No relevant documents found
+2026-02-01 11:07:21,142 - INFO - Chat interrupted by user
+2026-02-01 11:07:21,143 - INFO - RAG Chatbot Application Ended
+2026-02-01 11:07:52,950 - INFO - ============================================================
+2026-02-01 11:07:52,951 - INFO - RAG Chatbot Application Started
+2026-02-01 11:07:52,951 - INFO - Timestamp: 2026-02-01 11:07:52
+2026-02-01 11:07:52,952 - INFO - ============================================================
+2026-02-01 11:07:52,952 - INFO - ============================================================
+2026-02-01 11:07:52,952 - INFO - RAG Chatbot Initialized
+2026-02-01 11:07:52,952 - INFO - Index: test-index
+2026-02-01 11:07:52,952 - INFO - ============================================================
+2026-02-01 11:07:52,953 - INFO - Testing connections...
+2026-02-01 11:07:52,967 - INFO - GET http://localhost:9200/ [status:200 duration:0.014s]
+2026-02-01 11:07:53,005 - INFO - ============================================================
+2026-02-01 11:07:53,006 - INFO - Starting Interactive Chat Session
+2026-02-01 11:07:53,006 - INFO - Type 'exit' or 'quit' to end the conversation
+2026-02-01 11:07:53,006 - INFO - ============================================================
+2026-02-01 11:08:01,560 - INFO - ============================================================
+2026-02-01 11:08:01,562 - INFO - Query: what
+2026-02-01 11:08:01,562 - INFO - ============================================================
+2026-02-01 11:08:01,562 - INFO - Step 1: Retrieving relevant context...
+2026-02-01 11:08:06,479 - INFO - Retrieving context for query: 'what'
+2026-02-01 11:08:11,740 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-02-01 11:08:15,264 - INFO - Performing vector search with top 5 results
+2026-02-01 11:10:20,066 - INFO - POST http://localhost:9200/test-index/_search [status:200 duration:0.037s]
+2026-02-01 11:10:20,080 - INFO - Step 2: Building context prompt...
+2026-02-01 11:10:20,081 - INFO - Step 3: Generating answer with OpenAI...
+2026-02-01 11:10:20,081 - INFO - Generating answer for query: 'what'
+2026-02-01 11:10:20,081 - INFO - Calling OpenAI API with model: gpt-4
+2026-02-01 11:10:22,191 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-01 11:10:22,266 - INFO - ------------------------------------------------------------
+2026-02-01 11:10:22,266 - INFO - Final Answer:
+The question provided does not contain enough information for me to provide a relevant answer. Could you please provide more details or clarify your question?
+2026-02-01 11:10:22,266 - INFO - ------------------------------------------------------------
+2026-02-01 11:11:10,125 - INFO - ============================================================
+2026-02-01 11:11:10,127 - INFO - RAG Chatbot Application Started
+2026-02-01 11:11:10,128 - INFO - Timestamp: 2026-02-01 11:11:10
+2026-02-01 11:11:10,128 - INFO - ============================================================
+2026-02-01 11:11:10,128 - INFO - ============================================================
+2026-02-01 11:11:10,128 - INFO - RAG Chatbot Initialized
+2026-02-01 11:11:10,129 - INFO - Index: test-index
+2026-02-01 11:11:10,129 - INFO - ============================================================
+2026-02-01 11:11:10,129 - INFO - Testing connections...
+2026-02-01 11:11:10,167 - INFO - GET http://localhost:9200/ [status:200 duration:0.036s]
+2026-02-01 11:11:10,169 - INFO - [OK] Elasticsearch connected (v8.12.0)
+2026-02-01 11:11:10,170 - INFO - [OK] OpenAI client initialized
+2026-02-01 11:11:10,170 - INFO - [OK] All connections successful
+2026-02-01 11:11:10,171 - INFO - ============================================================
+2026-02-01 11:11:10,171 - INFO - Starting Interactive Chat Session
+2026-02-01 11:11:10,171 - INFO - Type 'exit' or 'quit' to end the conversation
+2026-02-01 11:11:10,172 - INFO - ============================================================
+2026-02-01 11:11:14,838 - INFO - ============================================================
+2026-02-01 11:11:14,839 - INFO - Query: test
+2026-02-01 11:11:14,839 - INFO - ============================================================
+2026-02-01 11:11:14,840 - INFO - Step 1: Retrieving relevant context...
+2026-02-01 11:11:18,480 - INFO - Retrieving context for query: 'test'
+2026-02-01 11:11:21,972 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-02-01 11:11:24,976 - INFO - Performing vector search with top 5 results
+2026-02-01 11:11:30,487 - INFO - POST http://localhost:9200/test-index/_search [status:200 duration:0.013s]
+2026-02-01 11:11:40,440 - INFO - [OK] Retrieved 5 relevant documents
+2026-02-01 11:11:40,440 - INFO - Step 2: Building context prompt...
+2026-02-01 11:11:40,441 - INFO - Step 3: Generating answer with OpenAI...
+2026-02-01 11:11:40,441 - INFO - Generating answer for query: 'test'
+2026-02-01 11:11:40,441 - INFO - Calling OpenAI API with model: gpt-4
+2026-02-01 11:11:42,554 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-01 11:11:42,641 - INFO - [OK] Answer generated successfully
+2026-02-01 11:11:42,641 - INFO - ------------------------------------------------------------
+2026-02-01 11:11:42,641 - INFO - Final Answer:
+The question "test" is unclear and not related to the provided context. Please provide a specific question related to the context for a proper answer.
+2026-02-01 11:11:42,641 - INFO - ------------------------------------------------------------
+2026-02-01 11:11:52,726 - INFO - ============================================================
+2026-02-01 11:11:52,727 - INFO - Query: age of selvam
+2026-02-01 11:11:52,727 - INFO - ============================================================
+2026-02-01 11:11:52,727 - INFO - Step 1: Retrieving relevant context...
+2026-02-01 11:11:52,727 - INFO - Retrieving context for query: 'age of selvam'
+2026-02-01 11:11:53,164 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-02-01 11:11:53,166 - INFO - Performing vector search with top 5 results
+2026-02-01 11:11:53,226 - INFO - POST http://localhost:9200/test-index/_search [status:200 duration:0.057s]
+2026-02-01 11:12:49,288 - INFO - [OK] Retrieved 5 relevant documents
+2026-02-01 11:12:49,288 - INFO - Step 2: Building context prompt...
+2026-02-01 11:12:49,288 - INFO - Step 3: Generating answer with OpenAI...
+2026-02-01 11:12:49,288 - INFO - Generating answer for query: 'age of selvam'
+2026-02-01 11:12:49,289 - INFO - Calling OpenAI API with model: gpt-4
+2026-02-01 11:12:51,035 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-01 11:12:51,041 - INFO - [OK] Answer generated successfully
+2026-02-01 11:12:51,041 - INFO - ------------------------------------------------------------
+2026-02-01 11:12:51,041 - INFO - Final Answer:
+The context provided does not contain information about the age of Selvam.
+2026-02-01 11:12:51,042 - INFO - ------------------------------------------------------------
+2026-02-01 11:13:06,726 - INFO - ============================================================
+2026-02-01 11:13:06,727 - INFO - Query: what is age of aanadh
+2026-02-01 11:13:06,727 - INFO - ============================================================
+2026-02-01 11:13:06,727 - INFO - Step 1: Retrieving relevant context...
+2026-02-01 11:13:06,727 - INFO - Retrieving context for query: 'what is age of aanadh'
+2026-02-01 11:13:07,096 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-02-01 11:13:07,098 - INFO - Performing vector search with top 5 results
+2026-02-01 11:13:07,108 - INFO - POST http://localhost:9200/test-index/_search [status:200 duration:0.008s]
+2026-02-01 11:13:22,240 - INFO - [OK] Retrieved 5 relevant documents
+2026-02-01 11:13:27,089 - INFO - Step 2: Building context prompt...
+2026-02-01 11:13:27,089 - INFO - Step 3: Generating answer with OpenAI...
+2026-02-01 11:13:27,090 - INFO - Generating answer for query: 'what is age of aanadh'
+2026-02-01 11:13:27,090 - INFO - Calling OpenAI API with model: gpt-4
+2026-02-01 11:13:29,184 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-02-01 11:13:29,188 - INFO - [OK] Answer generated successfully
+2026-02-01 11:13:29,189 - INFO - ------------------------------------------------------------
+2026-02-01 11:13:29,189 - INFO - Final Answer:
+The age of Anandh is 34.
+2026-02-01 11:13:29,189 - INFO - ------------------------------------------------------------
+2026-02-01 11:13:54,774 - INFO - User ended the conversation
+2026-02-01 11:13:54,775 - INFO - RAG Chatbot Application Ended

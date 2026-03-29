@@ -1,0 +1,91 @@
+https: //sabarimalaonline.org/api/tofcart/addToWishlist
+{
+    "darshanBookingModel": {
+        "bookingSelfOther": "group",
+        "darshanDate": "05-Dec-2025",
+        "reportingMasterId": "2",
+        "channelTypeId": 100001,
+        "darshanTypeId": 100001,
+        "slotId": 3,
+        "slotName": "06:00 - 07:00",
+        "noOfPersons": 2,
+        "ticketPriceTotal": 0,
+        "userId": "1366886",
+        "serviceTypeId": "100001",
+        "darshanBookingPilgrimList": [
+            {
+                "pilgrimMasterId": 7930199,
+                "firstName": "ANBAZAGAN",
+                "lastName": "E",
+                "dateOfBirth": "1989-07-03",
+                "mobileNumber": "",
+                "gender": "Male",
+                "idProofType": 10003,
+                "idProofNumber": "238182750766",
+                "addressLine1": "21 Kurinji Street ",
+                "addressLine2": "Lalgudi",
+                "city": "100543",
+                "state": "124",
+                "country": "1001",
+                "pincode": "621601",
+                "image": "12112022/Pilgrim_22111215251349663561.png",
+                "newImage": null,
+                "registrationStatus": "N",
+                "baliTharpanam": ""
+            },
+            {
+                "pilgrimMasterId": 17426935,
+                "firstName": "RAMANAN",
+                "lastName": "JAYARAMAN",
+                "dateOfBirth": "1998-07-04",
+                "mobileNumber": "8095568255",
+                "gender": "Male",
+                "idProofType": 10003,
+                "idProofNumber": "967465847485",
+                "addressLine1": "39f3 MARIMUTHU ROAD ATTUR TK",
+                "addressLine2": "NS Theatre Behind",
+                "city": "100536",
+                "state": "124",
+                "country": "1001",
+                "pincode": "636102",
+                "image": "19102024/Pilgrim_24101908353360722493.png",
+                "newImage": null,
+                "registrationStatus": "N",
+                "baliTharpanam": ""
+            }
+        ],
+        "prasadamBookingList": []
+    },
+    "pilgrimWelfareDetailsModel": {
+        "totalWelfareAmount": 0
+    }
+
+    
+{
+        "masterListDetailsModel": [
+            {
+                "pilgrimId": 21870122,
+                "firstName": "MUGILAN",
+                "lastName": "S",
+                "dob": "1989-09-26",
+                "age": 36,
+                "mobileNumber": "8438801267",
+                "gender": "Male",
+                "idProofType": 10003,
+                "idProofNumber": "123545234456",
+                "addressLine1": "ATTUR",
+                "addressLine2": "ATTUR",
+                "city": "100536",
+                "country": "1001",
+                "state": "124",
+                "pincode": null,
+                "imagePath": "01112025/Profile_25110111262010017913.png",
+                "registrationStatus": "Y",
+                "image": "i=",
+                "idProofName": "AADHAAR CARD",
+                "starId": 0,
+                "starName": null,
+                "langId": 0
+            }
+        ]
+    }
