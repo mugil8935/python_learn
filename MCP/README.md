@@ -211,3 +211,31 @@ server.register_tool(
 ## References
 
 - [Model Context Protocol Specification](https://modelcontextprotocol.io/)
+
+
+{
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.profiles.windows": {
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "args": [
+        "/k",
+        "D:\\venv\\global\\Scripts\\activate.bat"
+      ]
+    },
+    "PowerShell": {
+      "source": "PowerShell"
+    }
+},
+"terminal.integrated.automationProfile.linux": {
+},
+"files.autoSave": "afterDelay",
+"github.copilot.nextEditSuggestions.enabled": true,
+"chat.viewSessions.orientation": "stacked",
+"terminal.integrated.shellIntegration.environmentReporting": true,
+"terminal.integrated.allowInUntrustedWorkspace": true,
+"terminal.integrated.allowMnemonics": true
+}
