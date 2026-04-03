@@ -15,7 +15,11 @@ MCP Client                MCP Server
 ## Files
 
 - **mcp_server.py**: MCP server implementation that provides tools and handles requests
+- **mcp_server_web.py**: Web-exposed MCP server (HTTP JSON-RPC) built with FastAPI
 - **mcp_client.py**: MCP client implementation that connects to the server and calls tools
+- **openai/mcp_client_openai.py**: MCP chatbot client that uses OpenAI to route prompts to tools semantically
+- **openai/mcp_client_openai_web.py**: MCP chatbot client that uses OpenAI routing and calls MCP web endpoint
+- **openai/mcp_client_openai_multi_web.py**: MCP chatbot client that routes across local MCP web tools and Atlassian MCP web tools
 
 ## Features
 
@@ -59,6 +63,27 @@ python mcp_server.py
 
 The server will read JSON-RPC requests from stdin and write responses to stdout.
 
+### Running Web-Exposed MCP Server
+
+```bash
+python mcp_server_web.py
+```
+
+Server endpoints:
+- `GET /health`
+- `POST /mcp` (JSON-RPC 2.0 payload)
+
+Example request:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/list",
+  "params": {}
+}
+```
+
 ### Running Client Example
 
 ```bash
@@ -72,6 +97,57 @@ This will:
 4. List available tools
 5. Call some example tools
 6. Disconnect
+
+### Running OpenAI-Routed Chatbot Client
+
+Set your OpenAI API key, then run:
+
+```bash
+set OPENAI_API_KEY=your_key_here
+python openai/mcp_client_openai.py
+```
+
+Optional model override:
+
+```bash
+set OPENAI_MODEL=gpt-4.1-mini
+```
+
+This client sends your prompt and the MCP tool list to OpenAI, gets the selected tool + arguments, and then calls that tool on the MCP server.
+
+### Running OpenAI-Routed Chatbot Client (Web MCP)
+
+First run the web server:
+
+```bash
+python mcp_server_web.py
+```
+
+Then in another terminal:
+
+```bash
+set OPENAI_API_KEY=your_key_here
+set MCP_WEB_ENDPOINT=http://127.0.0.1:8000/mcp
+python openai/mcp_client_openai_web.py
+```
+
+### Running OpenAI-Routed Multi-Server Chatbot Client
+
+This version merges tools from both your local MCP web server and an Atlassian MCP web server.
+
+```bash
+set OPENAI_API_KEY=your_key_here
+set MCP_WEB_ENDPOINT=http://127.0.0.1:8000/mcp
+set ATLASSIAN_MCP_WEB_ENDPOINT=https://your-atlassian-mcp.example.com/mcp
+python openai/mcp_client_openai_multi_web.py
+```
+
+Optional auth headers:
+
+```bash
+set MCP_WEB_API_KEY=your_local_server_key
+set ATLASSIAN_MCP_WEB_API_KEY=your_atlassian_server_key
+```
 
 ## JSON-RPC Protocol Examples
 
