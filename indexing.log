@@ -1,0 +1,14 @@
+2026-04-07 10:40:54,627 - INFO - ============================================================
+2026-04-07 10:40:54,627 - INFO - RAG Elasticsearch Indexer Started
+2026-04-07 10:40:54,627 - INFO - Timestamp: 2026-04-07 10:40:54
+2026-04-07 10:40:54,631 - INFO - ============================================================
+2026-04-07 10:40:54,632 - ERROR - Missing required arguments: input_file and index_name
+2026-04-07 10:41:44,848 - INFO - ============================================================
+2026-04-07 10:41:44,848 - INFO - RAG Elasticsearch Indexer Started
+2026-04-07 10:41:44,848 - INFO - Timestamp: 2026-04-07 10:41:44
+2026-04-07 10:41:44,855 - INFO - ============================================================
+2026-04-07 10:41:44,856 - INFO - Input File: voters_translated_cleaned.csv
+2026-04-07 10:41:44,856 - INFO - File Type: .CSV
+2026-04-07 10:41:44,856 - INFO - Index Name: voters_translated_cleaned
+2026-04-07 10:41:44,856 - INFO - Chunk Strategy: ROW
+2026-04-07 10:41:44,858 - ERROR - Input file not found: voters_translated_cleaned.csv

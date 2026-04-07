@@ -24,7 +24,7 @@ openai_client = OpenAI()
 
 # Configuration
 EMBEDDING_MODEL = "text-embedding-3-small"
-LLM_MODEL = "gpt-4"
+LLM_MODEL = "gpt-5"
 MAX_CONTEXT_CHUNKS = 10
 CONTEXT_WINDOW = 2000
 
@@ -52,8 +52,48 @@ class RAGChatbot:
             logger.error(f"Error generating embedding: {e}", exc_info=True)
             return None
     
+    def _apply_reciprocal_rank_fusion(self, text_results, vector_results, rrf_k=60):
+        """
+        Combine text and vector search results using Reciprocal Rank Fusion (RRF).
+        RRF formula: score = 1 / (k + rank)
+        This is superior to simple score normalization because it's rank-based and stable.
+        """
+        combined = {}
+        rrf_scores = {}
+        
+        # Add text search results with RRF scoring
+        for rank, hit in enumerate(text_results.get('hits', {}).get('hits', []), 1):
+            doc_id = hit['_id']
+            rrf_score = 1.0 / (rrf_k + rank)
+            combined[doc_id] = hit
+            rrf_scores[doc_id] = rrf_scores.get(doc_id, 0) + rrf_score
+            logger.debug(f"Text result rank {rank}: {doc_id} (RRF: {rrf_score:.6f})")
+        
+        # Add vector search results with RRF scoring
+        for rank, hit in enumerate(vector_results.get('hits', {}).get('hits', []), 1):
+            doc_id = hit['_id']
+            rrf_score = 1.0 / (rrf_k + rank)
+            if doc_id not in combined:
+                combined[doc_id] = hit
+            rrf_scores[doc_id] = rrf_scores.get(doc_id, 0) + rrf_score
+            logger.debug(f"Vector result rank {rank}: {doc_id} (RRF: {rrf_score:.6f})")
+        
+        # Sort by combined RRF scores
+        sorted_docs = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
+        
+        logger.info(f"RRF combined {len(sorted_docs)} unique documents from text + vector search")
+        return sorted_docs, combined
+
     def retrieve_context(self, query, num_results=MAX_CONTEXT_CHUNKS):
-        """Retrieve relevant context from Elasticsearch using hybrid search (most accurate)."""
+        """
+        Retrieve context using HYBRID SEARCH with RRF (Reciprocal Rank Fusion).
+        
+        Hybrid search combines:
+        1. Text/keyword search - captures exact term matches
+        2. Vector/semantic search - captures meaning and context
+        
+        Results are combined using RRF, which is more robust than score normalization.
+        """
         logger.info(f"Retrieving context for query: '{query}'")
         
         try:
@@ -63,67 +103,50 @@ class RAGChatbot:
                 logger.error("Failed to generate query embedding")
                 return []
             
-            # Try hybrid search first (BEST ACCURACY - KNN + text match)
-            logger.info(f"Attempting hybrid search (KNN + text match) with top {num_results} results")
+            # Step 1: Perform text-based search (keyword matching)
+            logger.info("Step 1: Performing text-based search...")
             try:
-                results = es_client.search(
+                text_results = es_client.search(
                     index=self.index_name,
                     body={
                         "query": {
-                            "bool": {
-                                "should": [
-                                    # Text-based match (keyword search)
-                                    {
-                                        "match": {
-                                            "text": {
-                                                "query": query,
-                                                "boost": 1.0
-                                            }
-                                        }
-                                    },
-                                    # Vector-based match (semantic search with native KNN)
-                                    {
-                                        "knn": {
-                                            "field": "embedding",
-                                            "query_vector": query_embedding,
-                                            "k": num_results
-                                        }
-                                    }
-                                ],
-                                "minimum_should_match": 1
-                            }
-                        },
-                        "size": num_results
-                    }
-                )
-                
-                logger.info("[OK] Using hybrid search (KNN + text match) - HIGHEST ACCURACY")
-            
-            except Exception as hybrid_error:
-                logger.warning(f"Hybrid search failed: {hybrid_error}. Trying native KNN...")
-                
-                try:
-                    # Fallback to native KNN (ES 8.8+)
-                    results = es_client.search(
-                        index=self.index_name,
-                        body={
-                            "query": {
-                                "knn": {
-                                    "field": "embedding",
-                                    "query_vector": query_embedding,
-                                    "k": num_results
+                            "match": {
+                                "text": {
+                                    "query": query,
+                                    "fuzziness": "AUTO",
+                                    "operator": "or"
                                 }
                             }
-                        }
-                    )
-                    
-                    logger.info("[OK] Using native KNN search - HIGH ACCURACY")
-                
-                except Exception as knn_error:
-                    logger.warning(f"Native KNN failed: {knn_error}. Falling back to cosineSimilarity...")
-                    
-                    # Fallback to script_score with cosineSimilarity (ES < 8.8)
-                    results = es_client.search(
+                        },
+                        "size": num_results * 2  # Get more to merge with vector results
+                    }
+                )
+                logger.info(f"Text search returned {len(text_results['hits']['hits'])} results")
+            except Exception as e:
+                logger.warning(f"Text search failed: {e}")
+                text_results = {"hits": {"hits": []}}
+            
+            # Step 2: Perform vector-based search (semantic matching)
+            logger.info("Step 2: Performing vector-based search...")
+            try:
+                vector_results = es_client.search(
+                    index=self.index_name,
+                    body={
+                        "query": {
+                            "knn": {
+                                "field": "embedding",
+                                "query_vector": query_embedding,
+                                "k": num_results * 2
+                            }
+                        },
+                        "size": num_results * 2
+                    }
+                )
+                logger.info(f"Vector search returned {len(vector_results['hits']['hits'])} results")
+            except Exception as e:
+                logger.warning(f"Native KNN search failed: {e}. Trying cosineSimilarity...")
+                try:
+                    vector_results = es_client.search(
                         index=self.index_name,
                         body={
                             "query": {
@@ -139,25 +162,33 @@ class RAGChatbot:
                                     }
                                 }
                             },
-                            "size": num_results
+                            "size": num_results * 2
                         }
                     )
-                    
-                    logger.info("[OK] Using cosineSimilarity (fallback) - MEDIUM ACCURACY")
+                    logger.info(f"CosineSimilarity search returned {len(vector_results['hits']['hits'])} results")
+                except Exception as fallback_error:
+                    logger.error(f"All vector searches failed: {fallback_error}")
+                    vector_results = {"hits": {"hits": []}}
             
-            # Extract relevant documents
+            # Step 3: Combine results using RRF
+            logger.info("Step 3: Combining results using Reciprocal Rank Fusion...")
+            sorted_docs, combined = self._apply_reciprocal_rank_fusion(text_results, vector_results)
+            
+            # Step 4: Extract top N documents
             documents = []
-            for hit in results['hits']['hits']:
+            for doc_id, rrf_score in sorted_docs[:num_results]:
+                hit = combined[doc_id]
                 doc = {
                     "text": hit['_source'].get('text', ''),
                     "row_id": hit['_source'].get('row_id'),
                     "chunk_index": hit['_source'].get('chunk_index'),
-                    "score": hit['_score']
+                    "score": hit['_score'],
+                    "rrf_score": rrf_score  # Include combined score for transparency
                 }
                 documents.append(doc)
-                logger.debug(f"Retrieved doc (score: {hit['_score']:.4f})")
+                logger.debug(f"Final result (RRF: {rrf_score:.6f}, ES: {hit['_score']:.4f}): Row {doc['row_id']}")
             
-            logger.info(f"[OK] Retrieved {len(documents)} relevant documents")
+            logger.info(f"[OK] Hybrid search (RRF) retrieved {len(documents)} documents")
             return documents
         
         except Exception as e:
@@ -212,8 +243,8 @@ Please answer the question based on the context provided above."""
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                temperature=0.7,
-                max_tokens=500
+                temperature=1,  # Updated to default value for compatibility with GPT-5
+                max_completion_tokens=500
             )
             
             answer = response.choices[0].message.content

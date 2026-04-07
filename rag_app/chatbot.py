@@ -53,8 +53,41 @@ class RAGChatbot:
             logger.error(f"Error generating embedding: {e}", exc_info=True)
             return None
     
+    def _apply_reciprocal_rank_fusion(self, text_results, vector_results, rrf_k=60):
+        """
+        Combine text and vector search results using Reciprocal Rank Fusion (RRF).
+        RRF formula: score = 1 / (k + rank)
+        More robust than score normalization because it's rank-based.
+        """
+        combined = {}
+        rrf_scores = {}
+        
+        # Add text search results with RRF scoring
+        for rank, hit in enumerate(text_results.get('hits', {}).get('hits', []), 1):
+            doc_id = hit['_id']
+            rrf_score = 1.0 / (rrf_k + rank)
+            combined[doc_id] = hit
+            rrf_scores[doc_id] = rrf_scores.get(doc_id, 0) + rrf_score
+        
+        # Add vector search results with RRF scoring
+        for rank, hit in enumerate(vector_results.get('hits', {}).get('hits', []), 1):
+            doc_id = hit['_id']
+            rrf_score = 1.0 / (rrf_k + rank)
+            if doc_id not in combined:
+                combined[doc_id] = hit
+            rrf_scores[doc_id] = rrf_scores.get(doc_id, 0) + rrf_score
+        
+        # Sort by combined RRF scores
+        sorted_docs = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
+        return sorted_docs, combined
+
     def retrieve_context(self, query, num_results=MAX_CONTEXT_CHUNKS):
-        """Retrieve relevant context from Elasticsearch using vector search."""
+        """
+        Retrieve context using HYBRID SEARCH with RRF (Reciprocal Rank Fusion).
+        Best approach for combining multiple search signals:
+        - Text search: captures exact keyword matches
+        - Vector search: captures semantic meaning
+        """
         logger.info(f"Retrieving context for query: '{query}'")
         
         try:
@@ -64,39 +97,96 @@ class RAGChatbot:
                 logger.error("Failed to generate query embedding")
                 return []
             
-            # Perform KNN search using script_score with cosine similarity
-            logger.info(f"Performing vector search with top {num_results} results")
-            results = es_client.search(
-                index=self.index_name,
-                body={
-                    "query": {
-                        "script_score": {
-                            "query": {
-                                "match_all": {}
-                            },
-                            "script": {
-                                "source": "cosineSimilarity(params.query_vector, 'embedding') + 1.0",
-                                "params": {
-                                    "query_vector": query_embedding
+            # Step 1: Text-based search
+            logger.info("Step 1: Performing text-based search...")
+            try:
+                text_results = es_client.search(
+                    index=self.index_name,
+                    body={
+                        "query": {
+                            "match": {
+                                "text": {
+                                    "query": query,
+                                    "fuzziness": "AUTO"
                                 }
                             }
-                        }
-                    },
-                    "size": num_results
-                }
-            )
+                        },
+                        "size": num_results * 2
+                    }
+                )
+                logger.info(f"Text search returned {len(text_results['hits']['hits'])} results")
+            except Exception as e:
+                logger.warning(f"Text search failed: {e}")
+                text_results = {"hits": {"hits": []}}
             
-            # Extract relevant documents
+            # Step 2: Vector-based search
+            logger.info("Step 2: Performing vector-based search...")
+            try:
+                vector_results = es_client.search(
+                    index=self.index_name,
+                    body={
+                        "query": {
+                            "knn": {
+                                "field": "embedding",
+                                "query_vector": query_embedding,
+                                "k": num_results * 2
+                            }
+                        },
+                        "size": num_results * 2
+                    }
+                )
+                logger.info(f"Vector search (KNN) returned {len(vector_results['hits']['hits'])} results")
+            except Exception as e:
+                logger.warning(f"KNN search failed: {e}. Trying cosineSimilarity...")
+                try:
+                    vector_results = es_client.search(
+                        index=self.index_name,
+                        body={
+                            "query": {
+                                "script_score": {
+                                    "query": {
+                                        "match_all": {}
+                                    },
+                                    "script": {
+                                        "source": "cosineSimilarity(params.query_vector, 'embedding') + 1.0",
+                                        "params": {
+                                            "query_vector": query_embedding
+                                        }
+                                    }
+                                }
+                            },
+                            "size": num_results * 2
+                        }
+                    )
+                    logger.info(f"CosineSimilarity search returned {len(vector_results['hits']['hits'])} results")
+                except Exception as fallback_error:
+                    logger.error(f"All vector searches failed: {fallback_error}")
+                    vector_results = {"hits": {"hits": []}}
+            
+            # Step 3: Combine using RRF
+            logger.info("Step 3: Combining results with Reciprocal Rank Fusion...")
+            sorted_docs, combined = self._apply_reciprocal_rank_fusion(text_results, vector_results)
+            
+            # Step 4: Extract top N documents
             documents = []
-            for hit in results['hits']['hits']:
+            for doc_id, rrf_score in sorted_docs[:num_results]:
+                hit = combined[doc_id]
                 doc = {
                     "text": hit['_source'].get('text', ''),
                     "row_id": hit['_source'].get('row_id'),
                     "chunk_index": hit['_source'].get('chunk_index'),
-                    "score": hit['_score']
+                    "score": hit['_score'],
+                    "rrf_score": rrf_score
                 }
                 documents.append(doc)
-                logger.debug(f"Retrieved doc (score: {hit['_score']:.4f}): Row {doc['row_id']}, Chunk {doc['chunk_index']}")
+                logger.debug(f"Final result (RRF: {rrf_score:.6f}, ES: {hit['_score']:.4f}): Row {doc['row_id']}, Chunk {doc['chunk_index']}")
+            
+            logger.info(f"[OK] Hybrid search (RRF) retrieved {len(documents)} documents")
+            return documents
+        
+        except Exception as e:
+            logger.error(f"Error retrieving context: {e}", exc_info=True)
+            return []
             
             logger.info(f"[OK] Retrieved {len(documents)} relevant documents")
             return documents

@@ -1,0 +1,366 @@
+2026-04-07 10:54:59,815 - INFO - ============================================================
+2026-04-07 10:54:59,823 - INFO - RAG Chatbot GUI Application Started
+2026-04-07 10:54:59,823 - INFO - Timestamp: 2026-04-07 10:54:59
+2026-04-07 10:54:59,824 - INFO - ============================================================
+2026-04-07 10:54:59,825 - ERROR - Missing required argument: index_name
+2026-04-07 10:55:04,023 - INFO - ============================================================
+2026-04-07 10:55:04,023 - INFO - RAG Chatbot GUI Application Started
+2026-04-07 10:55:04,025 - INFO - Timestamp: 2026-04-07 10:55:04
+2026-04-07 10:55:04,025 - INFO - ============================================================
+2026-04-07 10:55:04,025 - INFO - Index Name: voters_translated_cleaned
+2026-04-07 10:55:04,716 - INFO - RAG Chatbot Initialized with index: voters_translated_cleaned
+2026-04-07 10:55:04,759 - INFO - Testing connections...
+2026-04-07 10:55:04,781 - INFO - GET http://localhost:9200/ [status:200 duration:0.016s]
+2026-04-07 10:55:04,782 - INFO - [OK] Elasticsearch connected (v8.12.0)
+2026-04-07 10:55:13,252 - INFO - Query: Give me the age of guhan
+2026-04-07 10:55:13,252 - INFO - Retrieving context for query: 'Give me the age of guhan'
+2026-04-07 10:55:14,208 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 10:55:14,314 - INFO - Step 1: Performing text-based search...
+2026-04-07 10:55:14,419 - INFO - POST http://localhost:9200/voters_translated_cleaned/_search [status:200 duration:0.105s]
+2026-04-07 10:55:14,419 - INFO - Text search returned 0 results
+2026-04-07 10:55:14,424 - INFO - Step 2: Performing vector-based search...
+2026-04-07 10:55:14,450 - INFO - POST http://localhost:9200/voters_translated_cleaned/_search [status:400 duration:0.025s]
+2026-04-07 10:55:14,450 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29491] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 10:55:14,605 - INFO - POST http://localhost:9200/voters_translated_cleaned/_search [status:200 duration:0.155s]
+2026-04-07 10:55:14,621 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 10:55:14,621 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 10:55:14,622 - INFO - RRF combined 20 unique documents from text + vector search
+2026-04-07 10:55:14,622 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 10:55:14,622 - INFO - ============================================================
+2026-04-07 10:55:14,623 - INFO - CHUNKS USED FOR QUERY: Give me the age of guhan
+2026-04-07 10:55:14,623 - INFO - ============================================================
+2026-04-07 10:55:14,623 - INFO - Chunk 1: Row 381, Index 0, Score 1.2338
+2026-04-07 10:55:14,650 - INFO - Chunk 2: Row 16, Index 0, Score 1.2265
+2026-04-07 10:55:14,652 - INFO - Chunk 3: Row 228, Index 0, Score 1.2224
+2026-04-07 10:55:14,654 - INFO - Chunk 4: Row 345, Index 0, Score 1.2201
+2026-04-07 10:55:14,654 - INFO - Chunk 5: Row 70, Index 0, Score 1.2177
+2026-04-07 10:55:14,658 - INFO - Chunk 6: Row 448, Index 0, Score 1.2141
+2026-04-07 10:55:14,660 - INFO - Chunk 7: Row 286, Index 0, Score 1.2131
+2026-04-07 10:55:14,663 - INFO - Chunk 8: Row 248, Index 0, Score 1.2129
+2026-04-07 10:55:14,665 - INFO - Chunk 9: Row 590, Index 0, Score 1.2096
+2026-04-07 10:55:14,665 - INFO - Chunk 10: Row 433, Index 0, Score 1.2090
+2026-04-07 10:55:14,667 - INFO - ============================================================
+2026-04-07 10:55:14,668 - INFO - Generating answer for query: 'Give me the age of guhan'
+2026-04-07 10:55:14,668 - INFO - Calling OpenAI API with model: gpt-4
+2026-04-07 10:55:16,999 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-07 10:55:17,013 - INFO - [OK] Answer generated successfully
+2026-04-07 11:11:38,940 - INFO - ============================================================
+2026-04-07 11:11:38,940 - INFO - RAG Chatbot GUI Application Started
+2026-04-07 11:11:38,940 - INFO - Timestamp: 2026-04-07 11:11:38
+2026-04-07 11:11:38,940 - INFO - ============================================================
+2026-04-07 11:11:38,940 - INFO - Index Name: voters_translated
+2026-04-07 11:11:39,007 - INFO - RAG Chatbot Initialized with index: voters_translated
+2026-04-07 11:11:39,056 - INFO - Testing connections...
+2026-04-07 11:11:39,067 - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2026-04-07 11:11:39,067 - INFO - [OK] Elasticsearch connected (v8.12.0)
+2026-04-07 11:11:48,355 - INFO - Query: what is the age of guhan
+2026-04-07 11:11:48,355 - INFO - Retrieving context for query: 'what is the age of guhan'
+2026-04-07 11:11:49,434 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 11:11:49,551 - INFO - Step 1: Performing text-based search...
+2026-04-07 11:11:49,622 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.071s]
+2026-04-07 11:11:49,623 - INFO - Text search returned 0 results
+2026-04-07 11:11:49,623 - INFO - Step 2: Performing vector-based search...
+2026-04-07 11:11:49,664 - INFO - POST http://localhost:9200/voters_translated/_search [status:400 duration:0.039s]
+2026-04-07 11:11:49,664 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29436] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 11:11:49,727 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.064s]
+2026-04-07 11:11:49,743 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 11:11:49,744 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 11:11:49,744 - INFO - RRF combined 20 unique documents from text + vector search
+2026-04-07 11:11:49,744 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 11:11:49,745 - INFO - ============================================================
+2026-04-07 11:11:49,745 - INFO - CHUNKS USED FOR QUERY: what is the age of guhan
+2026-04-07 11:11:49,745 - INFO - ============================================================
+2026-04-07 11:11:49,745 - INFO - Chunk 1: Row 436, Index 0, Score 1.2494
+2026-04-07 11:11:49,751 - INFO - Chunk 2: Row 229, Index 0, Score 1.2487
+2026-04-07 11:11:49,753 - INFO - Chunk 3: Row 523, Index 0, Score 1.2372
+2026-04-07 11:11:49,755 - INFO - Chunk 4: Row 237, Index 0, Score 1.2320
+2026-04-07 11:11:49,757 - INFO - Chunk 5: Row 89, Index 0, Score 1.2317
+2026-04-07 11:11:49,759 - INFO - Chunk 6: Row 437, Index 0, Score 1.2312
+2026-04-07 11:11:49,761 - INFO - Chunk 7: Row 140, Index 0, Score 1.2266
+2026-04-07 11:11:49,765 - INFO - Chunk 8: Row 524, Index 0, Score 1.2209
+2026-04-07 11:11:49,768 - INFO - Chunk 9: Row 64, Index 0, Score 1.2190
+2026-04-07 11:11:49,770 - INFO - Chunk 10: Row 345, Index 0, Score 1.2188
+2026-04-07 11:11:49,772 - INFO - ============================================================
+2026-04-07 11:11:49,773 - INFO - Generating answer for query: 'what is the age of guhan'
+2026-04-07 11:11:49,773 - INFO - Calling OpenAI API with model: gpt-4
+2026-04-07 11:11:51,924 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-07 11:11:51,939 - INFO - [OK] Answer generated successfully
+2026-04-07 11:12:45,144 - INFO - Query: what is the age of guhan. The spelling would be differnet but the way it sounds matters
+2026-04-07 11:12:45,144 - INFO - Retrieving context for query: 'what is the age of guhan. The spelling would be differnet but the way it sounds matters'
+2026-04-07 11:12:45,557 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 11:12:45,557 - INFO - Step 1: Performing text-based search...
+2026-04-07 11:12:45,637 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.081s]
+2026-04-07 11:12:45,638 - INFO - Text search returned 0 results
+2026-04-07 11:12:45,638 - INFO - Step 2: Performing vector-based search...
+2026-04-07 11:12:45,687 - INFO - POST http://localhost:9200/voters_translated/_search [status:400 duration:0.047s]
+2026-04-07 11:12:45,687 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29465] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 11:12:45,744 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.055s]
+2026-04-07 11:12:45,751 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 11:12:45,751 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 11:12:45,751 - INFO - RRF combined 20 unique documents from text + vector search
+2026-04-07 11:12:45,752 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 11:12:45,753 - INFO - ============================================================
+2026-04-07 11:12:45,753 - INFO - CHUNKS USED FOR QUERY: what is the age of guhan. The spelling would be differnet but the way it sounds matters
+2026-04-07 11:12:45,753 - INFO - ============================================================
+2026-04-07 11:12:45,753 - INFO - Chunk 1: Row 436, Index 0, Score 1.2738
+2026-04-07 11:12:45,756 - INFO - Chunk 2: Row 229, Index 0, Score 1.2711
+2026-04-07 11:12:45,758 - INFO - Chunk 3: Row 89, Index 0, Score 1.2632
+2026-04-07 11:12:45,760 - INFO - Chunk 4: Row 237, Index 0, Score 1.2575
+2026-04-07 11:12:45,760 - INFO - Chunk 5: Row 524, Index 0, Score 1.2533
+2026-04-07 11:12:45,766 - INFO - Chunk 6: Row 140, Index 0, Score 1.2495
+2026-04-07 11:12:45,768 - INFO - Chunk 7: Row 523, Index 0, Score 1.2475
+2026-04-07 11:12:45,771 - INFO - Chunk 8: Row 438, Index 0, Score 1.2432
+2026-04-07 11:12:45,771 - INFO - Chunk 9: Row 345, Index 0, Score 1.2404
+2026-04-07 11:12:45,775 - INFO - Chunk 10: Row 437, Index 0, Score 1.2403
+2026-04-07 11:12:45,777 - INFO - ============================================================
+2026-04-07 11:12:45,777 - INFO - Generating answer for query: 'what is the age of guhan. The spelling would be differnet but the way it sounds matters'
+2026-04-07 11:12:45,777 - INFO - Calling OpenAI API with model: gpt-4
+2026-04-07 11:12:48,018 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-07 11:12:48,029 - INFO - [OK] Answer generated successfully
+2026-04-07 11:17:00,923 - INFO - Query: The context provided does not contain information about the age of a person named Guhan.
+2026-04-07 11:17:00,923 - INFO - Retrieving context for query: 'The context provided does not contain information about the age of a person named Guhan.'
+2026-04-07 11:17:01,945 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 11:17:01,947 - INFO - Step 1: Performing text-based search...
+2026-04-07 11:17:02,016 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.069s]
+2026-04-07 11:17:02,023 - INFO - Text search returned 15 results
+2026-04-07 11:17:02,023 - INFO - Step 2: Performing vector-based search...
+2026-04-07 11:17:02,068 - INFO - POST http://localhost:9200/voters_translated/_search [status:400 duration:0.042s]
+2026-04-07 11:17:02,074 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29576] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 11:17:02,133 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.057s]
+2026-04-07 11:17:02,143 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 11:17:02,144 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 11:17:02,144 - INFO - RRF combined 35 unique documents from text + vector search
+2026-04-07 11:17:02,144 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 11:17:02,146 - INFO - ============================================================
+2026-04-07 11:17:02,146 - INFO - CHUNKS USED FOR QUERY: The context provided does not contain information about the age of a person named Guhan.
+2026-04-07 11:17:02,146 - INFO - ============================================================
+2026-04-07 11:17:02,146 - INFO - Chunk 1: Row 525, Index 0, Score 3.8064
+2026-04-07 11:17:02,146 - INFO - Chunk 2: Row 237, Index 0, Score 1.3444
+2026-04-07 11:17:02,150 - INFO - Chunk 3: Row 221, Index 0, Score 3.8064
+2026-04-07 11:17:02,152 - INFO - Chunk 4: Row 229, Index 0, Score 1.3399
+2026-04-07 11:17:02,155 - INFO - Chunk 5: Row 228, Index 0, Score 3.8064
+2026-04-07 11:17:02,157 - INFO - Chunk 6: Row 89, Index 0, Score 1.3348
+2026-04-07 11:17:02,159 - INFO - Chunk 7: Row 256, Index 0, Score 3.8064
+2026-04-07 11:17:02,162 - INFO - Chunk 8: Row 524, Index 0, Score 1.3264
+2026-04-07 11:17:02,165 - INFO - Chunk 9: Row 633, Index 0, Score 3.8064
+2026-04-07 11:17:02,167 - INFO - Chunk 10: Row 436, Index 0, Score 1.3254
+2026-04-07 11:17:02,170 - INFO - ============================================================
+2026-04-07 11:17:02,170 - INFO - Generating answer for query: 'The context provided does not contain information about the age of a person named Guhan.'
+2026-04-07 11:17:02,171 - INFO - Calling OpenAI API with model: gpt-4
+2026-04-07 11:17:04,282 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-07 11:17:04,293 - INFO - [OK] Answer generated successfully
+2026-04-07 11:17:39,656 - INFO - Query: exit
+2026-04-07 11:17:39,656 - INFO - Retrieving context for query: 'exit'
+2026-04-07 11:17:40,649 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 11:17:40,655 - INFO - Step 1: Performing text-based search...
+2026-04-07 11:17:40,705 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.050s]
+2026-04-07 11:17:40,706 - INFO - Text search returned 0 results
+2026-04-07 11:17:40,706 - INFO - Step 2: Performing vector-based search...
+2026-04-07 11:17:40,748 - INFO - POST http://localhost:9200/voters_translated/_search [status:400 duration:0.042s]
+2026-04-07 11:17:40,748 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29546] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 11:17:40,809 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.061s]
+2026-04-07 11:17:40,818 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 11:17:40,819 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 11:17:40,819 - INFO - RRF combined 20 unique documents from text + vector search
+2026-04-07 11:17:40,819 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 11:17:40,820 - INFO - ============================================================
+2026-04-07 11:17:40,820 - INFO - CHUNKS USED FOR QUERY: exit
+2026-04-07 11:17:40,820 - INFO - ============================================================
+2026-04-07 11:17:40,821 - INFO - Chunk 1: Row 417, Index 0, Score 1.1724
+2026-04-07 11:17:40,839 - INFO - Chunk 2: Row 497, Index 0, Score 1.1712
+2026-04-07 11:17:40,843 - INFO - Chunk 3: Row 609, Index 0, Score 1.1707
+2026-04-07 11:17:40,843 - INFO - Chunk 4: Row 580, Index 0, Score 1.1692
+2026-04-07 11:17:40,849 - INFO - Chunk 5: Row 78, Index 0, Score 1.1684
+2026-04-07 11:17:40,850 - INFO - Chunk 6: Row 694, Index 0, Score 1.1637
+2026-04-07 11:17:40,853 - INFO - Chunk 7: Row 404, Index 0, Score 1.1626
+2026-04-07 11:17:40,856 - INFO - Chunk 8: Row 601, Index 0, Score 1.1620
+2026-04-07 11:17:40,857 - INFO - Chunk 9: Row 67, Index 0, Score 1.1608
+2026-04-07 11:17:40,858 - INFO - Chunk 10: Row 419, Index 0, Score 1.1606
+2026-04-07 11:17:40,860 - INFO - ============================================================
+2026-04-07 11:17:40,860 - INFO - Generating answer for query: 'exit'
+2026-04-07 11:17:40,860 - INFO - Calling OpenAI API with model: gpt-4
+2026-04-07 11:17:42,859 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-07 11:17:42,861 - INFO - [OK] Answer generated successfully
+2026-04-07 11:17:46,026 - INFO - Query: bye
+2026-04-07 11:17:46,026 - INFO - Retrieving context for query: 'bye'
+2026-04-07 11:17:46,361 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 11:17:46,363 - INFO - Step 1: Performing text-based search...
+2026-04-07 11:17:46,413 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.049s]
+2026-04-07 11:17:46,413 - INFO - Text search returned 0 results
+2026-04-07 11:17:46,413 - INFO - Step 2: Performing vector-based search...
+2026-04-07 11:17:46,460 - INFO - POST http://localhost:9200/voters_translated/_search [status:400 duration:0.046s]
+2026-04-07 11:17:46,460 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29605] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 11:17:46,515 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.052s]
+2026-04-07 11:17:46,522 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 11:17:46,522 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 11:17:46,523 - INFO - RRF combined 20 unique documents from text + vector search
+2026-04-07 11:17:46,523 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 11:17:46,523 - INFO - ============================================================
+2026-04-07 11:17:46,523 - INFO - CHUNKS USED FOR QUERY: bye
+2026-04-07 11:17:46,524 - INFO - ============================================================
+2026-04-07 11:17:46,524 - INFO - Chunk 1: Row 622, Index 0, Score 1.1913
+2026-04-07 11:17:46,527 - INFO - Chunk 2: Row 560, Index 0, Score 1.1885
+2026-04-07 11:17:46,530 - INFO - Chunk 3: Row 1, Index 0, Score 1.1877
+2026-04-07 11:17:46,533 - INFO - Chunk 4: Row 5, Index 0, Score 1.1841
+2026-04-07 11:17:46,535 - INFO - Chunk 5: Row 563, Index 0, Score 1.1814
+2026-04-07 11:17:46,536 - INFO - Chunk 6: Row 609, Index 0, Score 1.1813
+2026-04-07 11:17:46,538 - INFO - Chunk 7: Row 17, Index 0, Score 1.1802
+2026-04-07 11:17:46,539 - INFO - Chunk 8: Row 562, Index 0, Score 1.1790
+2026-04-07 11:17:46,541 - INFO - Chunk 9: Row 18, Index 0, Score 1.1774
+2026-04-07 11:17:46,542 - INFO - Chunk 10: Row 146, Index 0, Score 1.1766
+2026-04-07 11:17:46,544 - INFO - ============================================================
+2026-04-07 11:17:46,544 - INFO - Generating answer for query: 'bye'
+2026-04-07 11:17:46,544 - INFO - Calling OpenAI API with model: gpt-4
+2026-04-07 11:17:48,756 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-07 11:17:48,766 - INFO - [OK] Answer generated successfully
+2026-04-07 11:17:49,119 - INFO - RAG Chatbot GUI Application Ended
+2026-04-07 11:17:53,528 - INFO - ============================================================
+2026-04-07 11:17:53,528 - INFO - RAG Chatbot GUI Application Started
+2026-04-07 11:17:53,528 - INFO - Timestamp: 2026-04-07 11:17:53
+2026-04-07 11:17:53,528 - INFO - ============================================================
+2026-04-07 11:17:53,528 - INFO - Index Name: voters_translated
+2026-04-07 11:17:53,595 - INFO - RAG Chatbot Initialized with index: voters_translated
+2026-04-07 11:17:53,643 - INFO - Testing connections...
+2026-04-07 11:17:53,656 - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2026-04-07 11:17:53,656 - INFO - [OK] Elasticsearch connected (v8.12.0)
+2026-04-07 11:18:03,685 - INFO - Query: what is the age of Guhan
+2026-04-07 11:18:03,685 - INFO - Retrieving context for query: 'what is the age of Guhan'
+2026-04-07 11:18:04,654 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 11:18:04,757 - INFO - Step 1: Performing text-based search...
+2026-04-07 11:18:04,799 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.041s]
+2026-04-07 11:18:04,808 - INFO - Text search returned 0 results
+2026-04-07 11:18:04,808 - INFO - Step 2: Performing vector-based search...
+2026-04-07 11:18:04,854 - INFO - POST http://localhost:9200/voters_translated/_search [status:400 duration:0.044s]
+2026-04-07 11:18:04,854 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29612] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 11:18:04,910 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.051s]
+2026-04-07 11:18:04,918 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 11:18:04,919 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 11:18:04,919 - INFO - RRF combined 20 unique documents from text + vector search
+2026-04-07 11:18:04,919 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 11:18:04,920 - INFO - ============================================================
+2026-04-07 11:18:04,920 - INFO - CHUNKS USED FOR QUERY: what is the age of Guhan
+2026-04-07 11:18:04,920 - INFO - ============================================================
+2026-04-07 11:18:04,920 - INFO - Chunk 1: Row 229, Index 0, Score 1.2656
+2026-04-07 11:18:04,925 - INFO - Chunk 2: Row 436, Index 0, Score 1.2553
+2026-04-07 11:18:04,927 - INFO - Chunk 3: Row 89, Index 0, Score 1.2490
+2026-04-07 11:18:04,930 - INFO - Chunk 4: Row 237, Index 0, Score 1.2489
+2026-04-07 11:18:04,932 - INFO - Chunk 5: Row 523, Index 0, Score 1.2480
+2026-04-07 11:18:04,934 - INFO - Chunk 6: Row 140, Index 0, Score 1.2413
+2026-04-07 11:18:04,937 - INFO - Chunk 7: Row 524, Index 0, Score 1.2388
+2026-04-07 11:18:04,939 - INFO - Chunk 8: Row 437, Index 0, Score 1.2384
+2026-04-07 11:18:04,941 - INFO - Chunk 9: Row 64, Index 0, Score 1.2332
+2026-04-07 11:18:04,943 - INFO - Chunk 10: Row 286, Index 0, Score 1.2307
+2026-04-07 11:18:04,946 - INFO - ============================================================
+2026-04-07 11:18:04,946 - INFO - Generating answer for query: 'what is the age of Guhan'
+2026-04-07 11:18:04,947 - INFO - Calling OpenAI API with model: gpt-5
+2026-04-07 11:18:06,455 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-04-07 11:18:06,455 - ERROR - Error generating answer: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}
+Traceback (most recent call last):
+  File "h:\python\python_learn\rag_app\chatbot_gui.py", line 240, in generate_answer
+    response = openai_client.chat.completions.create(
+  File "h:\venv\global\lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "h:\venv\global\lib\site-packages\openai\resources\chat\completions\completions.py", line 1211, in create
+    return self._post(
+  File "h:\venv\global\lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "h:\venv\global\lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': "Unsupported parameter: 'max_tokens' is not supported with this model. Use 'max_completion_tokens' instead.", 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'unsupported_parameter'}}
+2026-04-07 11:19:06,936 - INFO - RAG Chatbot GUI Application Ended
+2026-04-07 11:19:16,945 - INFO - ============================================================
+2026-04-07 11:19:16,945 - INFO - RAG Chatbot GUI Application Started
+2026-04-07 11:19:16,945 - INFO - Timestamp: 2026-04-07 11:19:16
+2026-04-07 11:19:16,945 - INFO - ============================================================
+2026-04-07 11:19:16,945 - INFO - Index Name: voters_translated
+2026-04-07 11:19:17,010 - INFO - RAG Chatbot Initialized with index: voters_translated
+2026-04-07 11:19:17,063 - INFO - Testing connections...
+2026-04-07 11:19:17,075 - INFO - GET http://localhost:9200/ [status:200 duration:0.011s]
+2026-04-07 11:19:17,076 - INFO - [OK] Elasticsearch connected (v8.12.0)
+2026-04-07 11:19:26,496 - INFO - Query: what is age of Guhan
+2026-04-07 11:19:26,496 - INFO - Retrieving context for query: 'what is age of Guhan'
+2026-04-07 11:19:27,484 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 11:19:27,578 - INFO - Step 1: Performing text-based search...
+2026-04-07 11:19:27,633 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.055s]
+2026-04-07 11:19:27,634 - INFO - Text search returned 0 results
+2026-04-07 11:19:27,634 - INFO - Step 2: Performing vector-based search...
+2026-04-07 11:19:27,682 - INFO - POST http://localhost:9200/voters_translated/_search [status:400 duration:0.046s]
+2026-04-07 11:19:27,682 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29502] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 11:19:27,735 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.052s]
+2026-04-07 11:19:27,744 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 11:19:27,745 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 11:19:27,746 - INFO - RRF combined 20 unique documents from text + vector search
+2026-04-07 11:19:27,746 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 11:19:27,746 - INFO - ============================================================
+2026-04-07 11:19:27,747 - INFO - CHUNKS USED FOR QUERY: what is age of Guhan
+2026-04-07 11:19:27,747 - INFO - ============================================================
+2026-04-07 11:19:27,747 - INFO - Chunk 1: Row 229, Index 0, Score 1.2429
+2026-04-07 11:19:27,751 - INFO - Chunk 2: Row 436, Index 0, Score 1.2396
+2026-04-07 11:19:27,754 - INFO - Chunk 3: Row 523, Index 0, Score 1.2377
+2026-04-07 11:19:27,757 - INFO - Chunk 4: Row 89, Index 0, Score 1.2351
+2026-04-07 11:19:27,760 - INFO - Chunk 5: Row 237, Index 0, Score 1.2285
+2026-04-07 11:19:27,763 - INFO - Chunk 6: Row 524, Index 0, Score 1.2280
+2026-04-07 11:19:27,766 - INFO - Chunk 7: Row 140, Index 0, Score 1.2259
+2026-04-07 11:19:27,768 - INFO - Chunk 8: Row 66, Index 0, Score 1.2206
+2026-04-07 11:19:27,768 - INFO - Chunk 9: Row 64, Index 0, Score 1.2198
+2026-04-07 11:19:27,773 - INFO - Chunk 10: Row 345, Index 0, Score 1.2172
+2026-04-07 11:19:27,774 - INFO - ============================================================
+2026-04-07 11:19:27,774 - INFO - Generating answer for query: 'what is age of Guhan'
+2026-04-07 11:19:27,776 - INFO - Calling OpenAI API with model: gpt-5
+2026-04-07 11:19:28,496 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-04-07 11:19:28,497 - ERROR - Error generating answer: Error code: 400 - {'error': {'message': "Unsupported value: 'temperature' does not support 0.7 with this model. Only the default (1) value is supported.", 'type': 'invalid_request_error', 'param': 'temperature', 'code': 'unsupported_value'}}
+Traceback (most recent call last):
+  File "h:\python\python_learn\rag_app\chatbot_gui.py", line 240, in generate_answer
+    response = openai_client.chat.completions.create(
+  File "h:\venv\global\lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "h:\venv\global\lib\site-packages\openai\resources\chat\completions\completions.py", line 1211, in create
+    return self._post(
+  File "h:\venv\global\lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "h:\venv\global\lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': "Unsupported value: 'temperature' does not support 0.7 with this model. Only the default (1) value is supported.", 'type': 'invalid_request_error', 'param': 'temperature', 'code': 'unsupported_value'}}
+2026-04-07 11:19:40,669 - INFO - RAG Chatbot GUI Application Ended
+2026-04-07 11:20:25,590 - INFO - ============================================================
+2026-04-07 11:20:25,591 - INFO - RAG Chatbot GUI Application Started
+2026-04-07 11:20:25,591 - INFO - Timestamp: 2026-04-07 11:20:25
+2026-04-07 11:20:25,591 - INFO - ============================================================
+2026-04-07 11:20:25,591 - INFO - Index Name: voters_translated
+2026-04-07 11:20:25,648 - INFO - RAG Chatbot Initialized with index: voters_translated
+2026-04-07 11:20:25,686 - INFO - Testing connections...
+2026-04-07 11:20:25,697 - INFO - GET http://localhost:9200/ [status:200 duration:0.012s]
+2026-04-07 11:20:25,697 - INFO - [OK] Elasticsearch connected (v8.12.0)
+2026-04-07 11:20:31,617 - INFO - Query: what is the age of guhan
+2026-04-07 11:20:31,617 - INFO - Retrieving context for query: 'what is the age of guhan'
+2026-04-07 11:20:32,951 - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2026-04-07 11:20:33,050 - INFO - Step 1: Performing text-based search...
+2026-04-07 11:20:33,097 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.047s]
+2026-04-07 11:20:33,097 - INFO - Text search returned 0 results
+2026-04-07 11:20:33,097 - INFO - Step 2: Performing vector-based search...
+2026-04-07 11:20:33,151 - INFO - POST http://localhost:9200/voters_translated/_search [status:400 duration:0.053s]
+2026-04-07 11:20:33,151 - WARNING - Native KNN search failed: BadRequestError(400, 'x_content_parse_exception', '[1:29436] [knn] unknown field [k]'). Trying cosineSimilarity...
+2026-04-07 11:20:33,205 - INFO - POST http://localhost:9200/voters_translated/_search [status:200 duration:0.054s]
+2026-04-07 11:20:33,213 - INFO - CosineSimilarity search returned 20 results
+2026-04-07 11:20:33,214 - INFO - Step 3: Combining results using Reciprocal Rank Fusion...
+2026-04-07 11:20:33,214 - INFO - RRF combined 20 unique documents from text + vector search
+2026-04-07 11:20:33,214 - INFO - [OK] Hybrid search (RRF) retrieved 10 documents
+2026-04-07 11:20:33,215 - INFO - ============================================================
+2026-04-07 11:20:33,215 - INFO - CHUNKS USED FOR QUERY: what is the age of guhan
+2026-04-07 11:20:33,215 - INFO - ============================================================
+2026-04-07 11:20:33,215 - INFO - Chunk 1: Row 436, Index 0, Score 1.2494
+2026-04-07 11:20:33,220 - INFO - Chunk 2: Row 229, Index 0, Score 1.2487
+2026-04-07 11:20:33,222 - INFO - Chunk 3: Row 523, Index 0, Score 1.2372
+2026-04-07 11:20:33,225 - INFO - Chunk 4: Row 237, Index 0, Score 1.2320
+2026-04-07 11:20:33,227 - INFO - Chunk 5: Row 89, Index 0, Score 1.2317
+2026-04-07 11:20:33,229 - INFO - Chunk 6: Row 437, Index 0, Score 1.2312
+2026-04-07 11:20:33,231 - INFO - Chunk 7: Row 140, Index 0, Score 1.2266
+2026-04-07 11:20:33,231 - INFO - Chunk 8: Row 524, Index 0, Score 1.2209
+2026-04-07 11:20:33,232 - INFO - Chunk 9: Row 64, Index 0, Score 1.2190
+2026-04-07 11:20:33,234 - INFO - Chunk 10: Row 345, Index 0, Score 1.2188
+2026-04-07 11:20:33,234 - INFO - ============================================================
+2026-04-07 11:20:33,234 - INFO - Generating answer for query: 'what is the age of guhan'
+2026-04-07 11:20:33,235 - INFO - Calling OpenAI API with model: gpt-5
+2026-04-07 11:20:41,210 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-07 11:20:41,233 - INFO - [OK] Answer generated successfully
+2026-04-07 14:37:47,457 - INFO - RAG Chatbot GUI Application Ended
